@@ -1,49 +1,22 @@
-import { useEffect, useState } from "react";
-import MainMenuList from "./components/MainMenuList/MainMenuList";
-import DrinkList from "./components/DrinkList/DrinkList";
-import DipList from "./components/DipList/DipList";
-import { PRIVATE_KEY } from "../private-key/key";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/Home/Home";
+
 import "./App.css";
+import CartPage from "./pages/Cart/Cart";
+import EtaPage from "./pages/Eta/Eta";
 
-interface MenuI {
-  id: number;
-  type: string;
-  name: string;
-  ingredients: string[];
-  price: number;
-}
-
-//Must have the same schema from API
-type Menus = {
-  items?: MenuI[] | null;
-};
-
-const API_URL: string =
-  " https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  { path: "/cart", element: <CartPage /> },
+  { path: "/eta", element: <EtaPage /> },
+]);
 
 function App() {
-  const [menusData, setMenusData] = useState<Menus>();
-
-  useEffect(() => {
-    fetch(API_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-zocom": PRIVATE_KEY,
-      },
-    })
-      .then((res) => res.json())
-      .then((data: Menus) => {
-        setMenusData(data);
-        /* console.log(data.items); */
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  return (
-    <div>
+  return <RouterProvider router={router} />;
+  /* <div>
       <header> cart img</header>
       <main>
         <section>
@@ -59,8 +32,7 @@ function App() {
           <DrinkList list={menusData?.items} />
         </section>
       </main>
-    </div>
-  );
+    </div> */
 }
 
 export default App;
