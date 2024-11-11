@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 #my git ignore
-src/private-key/*
+private-key/

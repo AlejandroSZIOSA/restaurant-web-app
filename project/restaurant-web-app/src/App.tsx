@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { PRIVATE_KEY } from "./private-key/key";
-import "./App.css";
 import MainMenuList from "./components/MainMenuList/MainMenuList";
 import DrinkList from "./components/DrinkList/DrinkList";
 import DipList from "./components/DipList/DipList";
+import { PRIVATE_KEY } from "../private-key/key";
+import "./App.css";
 
 interface MenuI {
   id: number;
