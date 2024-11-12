@@ -3,17 +3,10 @@ import { PRIVATE_KEY } from "../../../private-key/key";
 import MainMenuList from "../../components/MainMenuList/MainMenuList";
 import DipList from "../../components/DipList/DipList";
 import DrinkList from "../../components/DrinkList/DrinkList";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import type { Item, CartItem, MenuI } from "../../types/types";
 
-interface MenuI {
-  id: number;
-  type: string;
-  name: string;
-  ingredients: string[];
-  price: number;
-}
-
-//Must have the same schema from API
+//Must have the same schema as from the API
 type Menus = {
   items?: MenuI[] | null;
 };
@@ -22,11 +15,12 @@ const API_URL: string =
   " https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu";
 
 export default function HomePage() {
-  const [menusData, setMenusData] = useState<Menus>();
-  const [cartList, setCartList] = useState();
+  const navigate = useNavigate();
 
-  //test
-  const searchParams = new URLSearchParams({ id: "123", page: "1" });
+  const [menusData, setMenusData] = useState<Menus>();
+
+  const [wontonId, setWontonId] = useState<number | null>(null);
+  const [dipId, setDipId] = useState<number | null>(null);
 
   useEffect(() => {
     fetch(API_URL, {
@@ -46,23 +40,58 @@ export default function HomePage() {
       });
   }, []);
 
-  function handleAddToCart(id: number): void {}
+  function handleSelectedItems(id: number, type: string): void {
+    /* console.log(id, type); */
+
+    switch (type) {
+      case "wonton":
+        {
+          setWontonId(id);
+          // console.log(wontonId);
+        }
+        break;
+      case "dip":
+        {
+          setDipId(id);
+          // console.log(dipId);
+        }
+        break;
+    }
+  }
+
+  function sendCartItemsToCartPage(): void {
+    let itemsIds: number[] = [];
+    if (wontonId && dipId) {
+      itemsIds.push(wontonId, dipId);
+      let newCartItems: Item[] = [];
+      itemsIds.forEach((itemId) => {
+        let tempItem: CartItem = menusData?.items.find((i) => i.id === itemId);
+        tempItem.quantity = 0;
+        newCartItems.push(tempItem);
+      });
+      navigate("/cart", { state: newCartItems });
+    }
+  }
 
   return (
     <div>
       <header>
-        <Link to={`/cart?${searchParams.toString()}`}>
-          <p>cart</p>
-        </Link>
+        <button onClick={sendCartItemsToCartPage}>To Cart</button>
       </header>
       <main>
         <section>
           <h1>Menu</h1>
-          <MainMenuList list={menusData?.items} />
+          <MainMenuList
+            list={menusData?.items}
+            handleSelectedItem={handleSelectedItems}
+          />
         </section>
         <section>
           <h1>Dep</h1>
-          <DipList list={menusData?.items} />
+          <DipList
+            list={menusData?.items}
+            handleSelectedItem={handleSelectedItems}
+          />
         </section>
         <section>
           <h1>Drinks</h1>

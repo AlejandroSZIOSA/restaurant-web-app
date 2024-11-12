@@ -1,12 +1,12 @@
-import type { MenuList } from "../../types/types";
+import type { MenuI } from "../../types/types";
 
-type PropsMenuList = {
-  list?: MenuList[];
+type PropsMenuI = {
+  list?: MenuI[];
 };
 
-const DrinkList = ({ list }: PropsMenuList) => {
-  function filteredDrinkList(l: MenuList[]): MenuList[] {
-    let result: MenuList[] = l.filter((i) => i.type === "drink");
+const DrinkList = ({ list }: PropsMenuI) => {
+  function filteredDrinkList(l: MenuI[]): MenuI[] {
+    let result: MenuI[] = l.filter((i) => i.type === "drink");
     return result;
   }
   return (

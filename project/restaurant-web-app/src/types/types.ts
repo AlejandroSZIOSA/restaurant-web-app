@@ -1,10 +1,21 @@
-interface MenuI {
+//Fetch API DATA
+
+export interface MenuI {
   id: number;
-  price: number;
   type: string;
+  name: string;
+  ingredients: string[];
+  price: number;
 }
 
-export interface MenuList extends MenuI {
+//Cart Item List
+
+export interface Item {
+  id: number;
   name: string;
-  description: string[];
+  price: number;
+}
+
+export interface CartItem extends Item {
+  quantity: number;
 }
