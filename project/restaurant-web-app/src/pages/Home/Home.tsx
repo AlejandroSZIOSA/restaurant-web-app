@@ -6,13 +6,13 @@ import DrinkList from "../../components/DrinkList/DrinkList";
 import { useNavigate } from "react-router-dom";
 import type { Item, CartItem, MenuI } from "../../types/types";
 
-//Must have the same schema as from the API
+//Must have the same schema as API
 type Menus = {
   items?: MenuI[] | null;
 };
 
 const API_URL: string =
-  " https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu";
+  "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -47,27 +47,27 @@ export default function HomePage() {
       case "wonton":
         {
           setWontonId(id);
-          // console.log(wontonId);
         }
         break;
       case "dip":
         {
           setDipId(id);
-          // console.log(dipId);
         }
         break;
     }
   }
 
-  function sendCartItemsToCartPage(): void {
+  function sendItemsToCartPage(): void {
     let itemsIds: number[] = [];
     if (wontonId && dipId) {
       itemsIds.push(wontonId, dipId);
       let newCartItems: Item[] = [];
       itemsIds.forEach((itemId) => {
-        let tempItem: CartItem = menusData?.items.find((i) => i.id === itemId);
-        tempItem.quantity = 0;
-        newCartItems.push(tempItem);
+        const itemObj: CartItem = menusData?.items?.find(
+          (i) => i.id === itemId
+        );
+        itemObj.quantity = 0;
+        newCartItems.push(itemObj);
       });
       navigate("/cart", { state: newCartItems });
     }
@@ -76,7 +76,7 @@ export default function HomePage() {
   return (
     <div>
       <header>
-        <button onClick={sendCartItemsToCartPage}>To Cart</button>
+        <button onClick={sendItemsToCartPage}>To Cart</button>
       </header>
       <main>
         <section>

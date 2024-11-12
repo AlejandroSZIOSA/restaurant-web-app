@@ -2,7 +2,7 @@ import type { MenuI } from "../../types/types";
 import { useState } from "react";
 
 type PropsMenuList = {
-  list?: MenuI[];
+  list?: MenuI[] | null;
   handleSelectedItem: (i: number, t: string) => void;
 };
 

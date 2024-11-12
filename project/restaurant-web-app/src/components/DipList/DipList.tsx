@@ -1,16 +1,16 @@
-import type { MenuList } from "../../types/types";
+import type { MenuI } from "../../types/types";
 import { useState } from "react";
 
-type PropsMenuList = {
-  list?: MenuList[];
+type PropsMenuI = {
+  list?: MenuI[] | null;
   handleSelectedItem: (i: number, t: string) => void;
 };
 
-const DipList = ({ list, handleSelectedItem }: PropsMenuList) => {
+const DipList = ({ list, handleSelectedItem }: PropsMenuI) => {
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  function filteredDipList(l: MenuList[]): MenuList[] {
-    let result: MenuList[] = l.filter((i) => i.type === "dip");
+  function filteredDipList(l: MenuI[]): MenuI[] {
+    let result: MenuI[] = l.filter((i) => i.type === "dip");
     return result;
   }
 
