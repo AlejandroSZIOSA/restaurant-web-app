@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Item } from "../../types/types";
 
@@ -7,15 +7,17 @@ interface CartItem extends Item {
 }
 
 export default function CartPage() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const receivedData: CartItem[] = location.state;
 
-  const [cartItems, setCartItems] = useState<CartItem[]>(receivedData);
+  const cartItems_Data: CartItem[] = location.state;
+
+  const [cartItems, setCartItems] = useState<CartItem[]>(cartItems_Data);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     handleTotalPrice();
-  }, [1]);
+  }, [handlePlusQuantity, handleLessQuantity]);
 
   function handlePlusQuantity(id: number, q: number): void {
     setCartItems((prevItems) =>
@@ -40,7 +42,15 @@ export default function CartPage() {
       subTotal = item.quantity * item.price;
       total = total + subTotal;
     });
-    console.log(total);
+    setTotalPrice(total);
+  }
+
+  function handleTakeMyMoney(): void {
+    let newOrder: number[] = [];
+    cartItems.forEach((item) => {
+      newOrder.push(item.id);
+    });
+    navigate("/eta", { state: newOrder });
   }
 
   return (
@@ -64,10 +74,7 @@ export default function CartPage() {
                   </div>
                   <div style={{ display: "flex", flexDirection: "row" }}>
                     <button
-                      onClick={() => {
-                        handlePlusQuantity(i.id, i.quantity);
-                        handleTotalPrice();
-                      }}
+                      onClick={() => handlePlusQuantity(i.id, i.quantity)}
                     >
                       +
                     </button>
@@ -90,11 +97,11 @@ export default function CartPage() {
               <p>Inc 20% moms</p>
             </div>
             <div>
-              <h2>Price</h2>
+              <h2>{totalPrice}</h2>
             </div>
           </div>
           <div>
-            <button>Take my money</button>
+            <button onClick={handleTakeMyMoney}>Take my money</button>
           </div>
         </section>
       </main>

@@ -72,7 +72,7 @@ export default function HomePage() {
         itemObj.quantity = 1;
         newCartItems.push(itemObj);
       });
-      navigate("/cart", { state: newCartItems });
+      navigate("/cart", { state: newCartItems }); //Navigate to Cart page and send data
     }
   }
 
