@@ -1,5 +1,6 @@
 import type { MenuI } from "../../types/types";
 import { useState } from "react";
+import MenuItemCard from "../MenuItemCard/MenuItemCard";
 
 type PropsMenuList = {
   list?: MenuI[] | null;
@@ -20,7 +21,7 @@ const MainMenuList = ({ list, handleSelectedItem }: PropsMenuList) => {
   };
 
   return (
-    <ol>
+    <ol style={{ display: "contents" }}>
       {list &&
         filteredMenuList(list).map((me) => (
           <li
@@ -29,11 +30,16 @@ const MainMenuList = ({ list, handleSelectedItem }: PropsMenuList) => {
             style={{
               cursor: "pointer",
               padding: "8px",
-              margin: "4px",
+              listStyle: "none",
+              marginLeft: "20px",
               backgroundColor: me.id === selectedItemId ? "lightblue" : "white",
             }}
           >
-            <p>{me.name}</p>
+            <MenuItemCard
+              name={me.name}
+              price={me.price}
+              ingredients={me.ingredients}
+            />
           </li>
         ))}
     </ol>

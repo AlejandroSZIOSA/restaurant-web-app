@@ -12,10 +12,10 @@ export default function EtaPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const itemsIds: number[] = location.state;
+
   const [orderId, setOrderId] = useState<string>("");
 
   useEffect(() => {
-    console.log(itemsIds);
     postData(URL, itemsIds);
   }, []);
 
