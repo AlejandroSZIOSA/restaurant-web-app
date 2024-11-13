@@ -77,7 +77,7 @@ export default function HomePage() {
   }
 
   return (
-    <div>
+    <div style={{ background: "green" }}>
       <header>
         <button onClick={sendItemsToCartPage}>To Cart</button>
       </header>

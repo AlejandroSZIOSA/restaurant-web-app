@@ -54,7 +54,7 @@ export default function CartPage() {
   }
 
   return (
-    <>
+    <div>
       <header> 🛒 </header>
       <main>
         <section>
@@ -105,6 +105,6 @@ export default function CartPage() {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }

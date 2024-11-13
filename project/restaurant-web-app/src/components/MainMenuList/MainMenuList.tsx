@@ -31,7 +31,7 @@ const MainMenuList = ({ list, handleSelectedItem }: PropsMenuList) => {
               cursor: "pointer",
               padding: "8px",
               listStyle: "none",
-              marginLeft: "20px",
+              margin: "0px 15px 0px 15px",
               backgroundColor: me.id === selectedItemId ? "lightblue" : "white",
             }}
           >

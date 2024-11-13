@@ -20,7 +20,7 @@ const DipList = ({ list, handleSelectedItem }: PropsMenuI) => {
   };
 
   return (
-    <ol>
+    <ol style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}>
       {list &&
         filteredDipList(list).map((i) => (
           <li
@@ -29,6 +29,7 @@ const DipList = ({ list, handleSelectedItem }: PropsMenuI) => {
             style={{
               cursor: "pointer",
               padding: "8px",
+              listStyle: "none",
               margin: "4px",
               backgroundColor: i.id === selectedItemId ? "lightblue" : "white",
             }}
