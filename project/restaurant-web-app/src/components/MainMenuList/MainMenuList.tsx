@@ -7,13 +7,14 @@ type PropsMenuList = {
 };
 
 const MainMenuList = ({ list, handleSelectedItem }: PropsMenuList) => {
-  const [selectedItemId, setSelectedItemId] = useState(null);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
   function filteredMenuList(l: MenuI[]): MenuI[] {
     let result: MenuI[] = l.filter((i) => i.type === "wonton");
     return result;
   }
-  const handleClick = (id: any, type: string) => {
+
+  const handleClick = (id: number, type: string) => {
     setSelectedItemId(id);
     handleSelectedItem(id, type); //Callback
   };
@@ -21,18 +22,18 @@ const MainMenuList = ({ list, handleSelectedItem }: PropsMenuList) => {
   return (
     <ol>
       {list &&
-        filteredMenuList(list).map((m) => (
+        filteredMenuList(list).map((me) => (
           <li
-            key={m.id}
-            onClick={() => handleClick(m.id, m.type)}
+            key={me.id}
+            onClick={() => handleClick(me.id, me.type)}
             style={{
               cursor: "pointer",
               padding: "8px",
               margin: "4px",
-              backgroundColor: m.id === selectedItemId ? "lightblue" : "white",
+              backgroundColor: me.id === selectedItemId ? "lightblue" : "white",
             }}
           >
-            <p>{m.name}</p>
+            <p>{me.name}</p>
           </li>
         ))}
     </ol>

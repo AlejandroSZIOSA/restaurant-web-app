@@ -16,10 +16,10 @@ const API_URL: string =
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const [menusData, setMenusData] = useState<Menus | null | undefined>(null);
 
-  const [menusData, setMenusData] = useState<Menus>();
-
-  const [wontonId, setWontonId] = useState<number | null>(null);
+  const [wontonId, setWontonId] = useState<number | null>(null); //main menu
+  const [drinkId, setDrinkId] = useState<number | null>(null);
   const [dipId, setDipId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -41,8 +41,6 @@ export default function HomePage() {
   }, []);
 
   function handleSelectedItems(id: number, type: string): void {
-    /* console.log(id, type); */
-
     switch (type) {
       case "wonton":
         {
@@ -54,19 +52,24 @@ export default function HomePage() {
           setDipId(id);
         }
         break;
+      case "drink":
+        {
+          setDrinkId(id);
+        }
+        break;
     }
   }
 
   function sendItemsToCartPage(): void {
     let itemsIds: number[] = [];
-    if (wontonId && dipId) {
-      itemsIds.push(wontonId, dipId);
+    if (wontonId && dipId && drinkId) {
+      itemsIds.push(wontonId, dipId, drinkId);
       let newCartItems: Item[] = [];
       itemsIds.forEach((itemId) => {
         const itemObj: CartItem = menusData?.items?.find(
           (i) => i.id === itemId
         );
-        itemObj.quantity = 0;
+        itemObj.quantity = 1;
         newCartItems.push(itemObj);
       });
       navigate("/cart", { state: newCartItems });
@@ -95,7 +98,10 @@ export default function HomePage() {
         </section>
         <section>
           <h1>Drinks</h1>
-          <DrinkList list={menusData?.items} />
+          <DrinkList
+            list={menusData?.items}
+            handleSelectedItem={handleSelectedItems}
+          />
         </section>
       </main>
     </div>
