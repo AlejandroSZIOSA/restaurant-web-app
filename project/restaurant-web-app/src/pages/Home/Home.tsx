@@ -5,7 +5,7 @@ import DipList from "../../components/DipList/DipList";
 import DrinkList from "../../components/DrinkList/DrinkList";
 import { useNavigate } from "react-router-dom";
 import type { Item, CartItem, MenuI } from "../../types/types";
-
+import cartLogo from "/cart.svg";
 //Must have the same schema as API
 type Menus = {
   items?: MenuI[] | null;
@@ -77,27 +77,41 @@ export default function HomePage() {
   }
 
   return (
-    <div style={{ background: "green" }}>
+    <div style={{ background: "#489078" }}>
       <header>
-        <button onClick={sendItemsToCartPage}>To Cart</button>
+        <div
+          style={{ display: "flex", justifyContent: "right", padding: "10px" }}
+        >
+          <img
+            src={cartLogo}
+            style={{ background: "white" }}
+            onClick={sendItemsToCartPage}
+          ></img>
+        </div>
       </header>
-      <main>
+      <main style={{ background: "#489078", height: "926px" }}>
         <section>
-          <h1>Menu</h1>
+          <h1 style={{ color: "#F4F3F1F0" }}>
+            MENY.........................9 SEK
+          </h1>
           <MainMenuList
             list={menusData?.items}
             handleSelectedItem={handleSelectedItems}
           />
         </section>
-        <section>
-          <h1>Dep</h1>
+        <section style={{ background: "#605858" }}>
+          <h1 style={{ color: "#F4F3F1F0" }}>
+            DIPSÅS.....................19 SEK{" "}
+          </h1>
           <DipList
             list={menusData?.items}
             handleSelectedItem={handleSelectedItems}
           />
         </section>
-        <section>
-          <h1>Drinks</h1>
+        <section style={{ background: "#605858" }}>
+          <h1 style={{ color: "#F4F3F1F0" }}>
+            DRICKA.....................19 SEK
+          </h1>
           <DrinkList
             list={menusData?.items}
             handleSelectedItem={handleSelectedItems}

@@ -92,7 +92,7 @@ export default function EtaPage() {
       style={{
         display: "flex",
         flexDirection: "column",
-        background: "aquamarine",
+        background: "#605858",
         height: "926px",
         alignItems: "center",
       }}
@@ -100,10 +100,10 @@ export default function EtaPage() {
       <section style={{ paddingTop: "90px" }}>
         <img src={boxTop} width={380}></img>
       </section>
-      <section style={{ width: "280px" }}>
+      <section style={{ width: "280px", color: "#F4F3F1F0" }}>
         <h1>DINA WONTONS TILLAGAS!</h1>
         <h1>ETA {waitingTime} MIN</h1>
-        <h2> # {orderData?.id}</h2>
+        <h2 style={{ fontSize: "x-large" }}> # {orderData?.id}</h2>
       </section>
       <section
         style={{
@@ -121,7 +121,7 @@ export default function EtaPage() {
           }}
           onClick={handleToOrderSelectionPage}
         >
-          <h1 style={{ color: "white" }}>GÖR EN NY BESTÄLLNING</h1>
+          <h1 style={{ color: "#F4F3F1F0" }}>GÖR EN NY BESTÄLLNING</h1>
         </div>
       </section>
     </main>

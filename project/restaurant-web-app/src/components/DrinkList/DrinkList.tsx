@@ -20,7 +20,14 @@ const DrinkList = ({ list, handleSelectedItem }: PropsMenuI) => {
   };
 
   return (
-    <ol style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}>
+    <ol
+      style={{
+        display: "grid",
+        gridTemplateColumns: "120px 120px 140px",
+        gridTemplateRows: "50px 50px",
+        color: "white",
+      }}
+    >
       {list &&
         filteredDrinkList(list).map((dr) => (
           <li
@@ -28,10 +35,10 @@ const DrinkList = ({ list, handleSelectedItem }: PropsMenuI) => {
             onClick={() => handleClick(dr.id, dr.type)}
             style={{
               cursor: "pointer",
-              padding: "8px",
               listStyle: "none",
               margin: "4px",
-              backgroundColor: dr.id === selectedItemId ? "lightblue" : "white",
+              backgroundColor:
+                dr.id === selectedItemId ? "#353131" : "#F1F0EC3D",
             }}
           >
             <p>{dr.name}</p>

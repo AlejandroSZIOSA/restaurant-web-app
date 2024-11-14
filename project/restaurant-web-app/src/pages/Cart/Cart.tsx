@@ -77,7 +77,6 @@ export default function CartPage() {
             style={{
               display: "flex",
               flexDirection: "column",
-              background: "aqua",
               width: "370px",
               height: "600px",
             }}
@@ -88,7 +87,6 @@ export default function CartPage() {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    background: "yellow",
                   }}
                 >
                   <div
@@ -131,7 +129,7 @@ export default function CartPage() {
             display: "flex",
             flexDirection: "row",
             justifyContent: "left",
-            background: "aquamarine",
+            background: "#3531313D",
           }}
         >
           <div

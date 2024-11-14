@@ -32,7 +32,7 @@ const MainMenuList = ({ list, handleSelectedItem }: PropsMenuList) => {
               padding: "8px",
               listStyle: "none",
               margin: "0px 15px 0px 15px",
-              backgroundColor: me.id === selectedItemId ? "lightblue" : "white",
+              backgroundColor: me.id === selectedItemId ? "#353131" : "#605858",
             }}
           >
             <MenuItemCard
@@ -40,6 +40,7 @@ const MainMenuList = ({ list, handleSelectedItem }: PropsMenuList) => {
               price={me.price}
               ingredients={me.ingredients}
             />
+            <hr style={{ width: "--moz-available" }}></hr>
           </li>
         ))}
     </ol>

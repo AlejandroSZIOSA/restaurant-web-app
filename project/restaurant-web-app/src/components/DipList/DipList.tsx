@@ -20,7 +20,14 @@ const DipList = ({ list, handleSelectedItem }: PropsMenuI) => {
   };
 
   return (
-    <ol style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}>
+    <ol
+      style={{
+        display: "grid",
+        gridTemplateColumns: "135px 120px 120px",
+        gridTemplateRows: "50px 50px",
+        color: "white",
+      }}
+    >
       {list &&
         filteredDipList(list).map((i) => (
           <li
@@ -28,10 +35,10 @@ const DipList = ({ list, handleSelectedItem }: PropsMenuI) => {
             onClick={() => handleClick(i.id, i.type)}
             style={{
               cursor: "pointer",
-              padding: "8px",
               listStyle: "none",
               margin: "4px",
-              backgroundColor: i.id === selectedItemId ? "lightblue" : "white",
+              backgroundColor:
+                i.id === selectedItemId ? "#353131" : "#F1F0EC3D",
             }}
           >
             <p>{i.name}</p>

@@ -10,7 +10,7 @@ const MenuItemCard = ({ name, price, ingredients }: Props) => {
   return (
     <div className="item-card_container">
       <div className="item-card_inner1">
-        <h2>
+        <h2 style={{ color: "#F4F3F1F0" }}>
           {name.toUpperCase()}.................................................
           {price} SEK
         </h2>
@@ -25,7 +25,7 @@ const MenuItemCard = ({ name, price, ingredients }: Props) => {
                 marginRight: "18px",
               }}
             >
-              {i}
+              <p style={{ color: "#F4F3F1F0" }}>{i}</p>
             </li>
           ))}
         </ol>
