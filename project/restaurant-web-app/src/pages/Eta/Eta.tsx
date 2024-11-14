@@ -6,6 +6,16 @@ type Order = {
   items?: number[] | null;
 };
 
+interface OrderData {
+  id?: string;
+  timestamp?: string;
+  eta?: string;
+}
+
+type OrderDataResult = {
+  order?: OrderData;
+};
+
 const URL: string = `https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/${ORDER_PRIVATE_ID}/orders`;
 
 export default function EtaPage() {
@@ -13,15 +23,18 @@ export default function EtaPage() {
   const navigate = useNavigate();
   const itemsIds: number[] = location.state;
 
-  const [orderId, setOrderId] = useState<string>("");
+  /*   const [waitingTime, setWaitingTime] = useState<string>(""); */
+
+  const [orderData, setOrderData] = useState<OrderData | null>(null);
+  const [waitingTime, setWaitingTime] = useState<number>(0);
 
   useEffect(() => {
     postData(URL, itemsIds);
   }, []);
 
-  function handleToOrderSelectionPage(): void {
-    navigate("/");
-  }
+  useEffect(() => {
+    handleWaitingTime();
+  }, [orderData]);
 
   async function postData(url: string, ids: number[]) {
     const newOrder: Order = { items: ids };
@@ -34,17 +47,52 @@ export default function EtaPage() {
         },
         body: JSON.stringify(newOrder),
       });
-      const result = await response.json();
-      setOrderId(result.order.id);
+      const result: OrderDataResult = await response.json();
+      /* setOrderId(result.order.id); */
+      if (result) {
+        const orderData: OrderData = {
+          id: result.order?.id,
+          eta: result.order?.eta,
+          timestamp: result.order?.timestamp,
+        };
+        setOrderData((prevUser) => ({
+          ...prevUser,
+          ...orderData,
+        }));
+      }
     } catch (err) {
       console.error("Error:", err);
       throw err;
     }
   }
+
+  function handleWaitingTime(): void {
+    const eta: Date = new Date(orderData?.eta);
+    let etaHour: number = eta.getHours();
+    let etaMinutes: number = eta.getMinutes();
+    //console.log("eta", eta);
+
+    const timeStamp: Date = new Date(orderData?.timestamp);
+    let timeStampHour: number = timeStamp.getHours();
+    let timeStampMinutes = timeStamp.getMinutes();
+    //console.log("current time", timeStamp);
+
+    let hoursDifferenceToMinutes: number = (etaHour - timeStampHour) * 60;
+    let minutesDifference: number = etaMinutes - timeStampMinutes;
+    let finalWaitingTime: number = hoursDifferenceToMinutes + minutesDifference;
+
+    setWaitingTime(finalWaitingTime);
+  }
+
+  function handleToOrderSelectionPage(): void {
+    navigate("/");
+  }
+
   return (
     <div>
       <h1>DINA WONTONS TILLAGAS!</h1>
-      <p> {orderId}</p>
+      <p>Waiting Minutes: {waitingTime}</p>
+      <p> # {orderData?.id}</p>
       <button onClick={handleToOrderSelectionPage}>
         GÖR EN NY BESTÄLLNING
       </button>

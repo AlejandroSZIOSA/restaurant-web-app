@@ -50,6 +50,7 @@ export default function CartPage() {
     cartItems.forEach((item) => {
       newOrder.push(item.id);
     });
+
     navigate("/eta", { state: newOrder });
   }
 
