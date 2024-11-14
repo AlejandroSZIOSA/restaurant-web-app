@@ -20,19 +20,23 @@ export default function CartPage() {
   }, [handlePlusQuantity, handleLessQuantity]);
 
   function handlePlusQuantity(id: number, q: number): void {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: q + 1 } : item
-      )
-    );
+    if (q <= 1) {
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: q + 1 } : item
+        )
+      );
+    }
   }
 
   function handleLessQuantity(id: number, q: number): void {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: q - 1 } : item
-      )
-    );
+    if (q > 1) {
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: q - 1 } : item
+        )
+      );
+    }
   }
 
   function handleTotalPrice(): void {
@@ -46,12 +50,14 @@ export default function CartPage() {
   }
 
   function handleTakeMyMoney(): void {
-    let newOrder: number[] = [];
+    let ordersId: number[] = [];
     cartItems.forEach((item) => {
-      newOrder.push(item.id);
+      for (let i = 0; i < item.quantity; i++) {
+        ordersId.push(item.id);
+      }
     });
 
-    navigate("/eta", { state: newOrder });
+    navigate("/eta", { state: ordersId });
   }
 
   return (

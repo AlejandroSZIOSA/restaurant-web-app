@@ -23,8 +23,6 @@ export default function EtaPage() {
   const navigate = useNavigate();
   const itemsIds: number[] = location.state;
 
-  /*   const [waitingTime, setWaitingTime] = useState<string>(""); */
-
   const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [waitingTime, setWaitingTime] = useState<number>(0);
 
@@ -37,6 +35,7 @@ export default function EtaPage() {
   }, [orderData]);
 
   async function postData(url: string, ids: number[]) {
+    // console.log(ids);
     const newOrder: Order = { items: ids };
     try {
       const response = await fetch(url, {
@@ -48,7 +47,6 @@ export default function EtaPage() {
         body: JSON.stringify(newOrder),
       });
       const result: OrderDataResult = await response.json();
-      /* setOrderId(result.order.id); */
       if (result) {
         const orderData: OrderData = {
           id: result.order?.id,
@@ -67,12 +65,12 @@ export default function EtaPage() {
   }
 
   function handleWaitingTime(): void {
-    const eta: Date = new Date(orderData?.eta);
+    let eta: Date = new Date(orderData?.eta);
     let etaHour: number = eta.getHours();
     let etaMinutes: number = eta.getMinutes();
     //console.log("eta", eta);
 
-    const timeStamp: Date = new Date(orderData?.timestamp);
+    let timeStamp: Date = new Date(orderData?.timestamp);
     let timeStampHour: number = timeStamp.getHours();
     let timeStampMinutes = timeStamp.getMinutes();
     //console.log("current time", timeStamp);
