@@ -60,8 +60,8 @@ export default function CartPage() {
   }
 
   return (
-    <div style={{ background: "#EEE", height: "inherit" }}>
-      <header>
+    <div style={{ background: "#EEE", height: "926px" }}>
+      <header style={{ display: "flex", justifyContent: "end" }}>
         <img src={cartLogo}></img>{" "}
       </header>
       <main
@@ -69,7 +69,7 @@ export default function CartPage() {
           display: "flex",
           flexDirection: "column",
           height: "926px",
-          gap: "18px",
+          gap: "10px",
         }}
       >
         <section style={{ display: "flex", justifyContent: "left" }}>
@@ -157,7 +157,6 @@ export default function CartPage() {
               display: "block",
               padding: "2px",
               background: "black",
-              width: "inherit",
             }}
           >
             <h1 style={{ color: "white" }}>Take my money</h1>

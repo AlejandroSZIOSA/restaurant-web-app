@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { PRIVATE_KEY, ORDER_PRIVATE_ID } from "../../../private-key/key";
 import { useEffect, useState } from "react";
+import boxTop from "../../../../../assets/boxtop.png";
 
 type Order = {
   items?: number[] | null;
@@ -87,13 +88,42 @@ export default function EtaPage() {
   }
 
   return (
-    <div>
-      <h1>DINA WONTONS TILLAGAS!</h1>
-      <p>Waiting Minutes: {waitingTime}</p>
-      <p> # {orderData?.id}</p>
-      <button onClick={handleToOrderSelectionPage}>
-        GÖR EN NY BESTÄLLNING
-      </button>
-    </div>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        background: "aquamarine",
+        height: "926px",
+        alignItems: "center",
+      }}
+    >
+      <section style={{ paddingTop: "90px" }}>
+        <img src={boxTop} width={380}></img>
+      </section>
+      <section style={{ width: "280px" }}>
+        <h1>DINA WONTONS TILLAGAS!</h1>
+        <h1>ETA {waitingTime} MIN</h1>
+        <h2> # {orderData?.id}</h2>
+      </section>
+      <section
+        style={{
+          marginTop: "auto",
+          paddingBottom: "30px",
+          width: "-moz-available",
+        }}
+      >
+        <div
+          style={{
+            display: "block",
+            padding: "2px",
+            background: "black",
+            width: "inherit",
+          }}
+          onClick={handleToOrderSelectionPage}
+        >
+          <h1 style={{ color: "white" }}>GÖR EN NY BESTÄLLNING</h1>
+        </div>
+      </section>
+    </main>
   );
 }
