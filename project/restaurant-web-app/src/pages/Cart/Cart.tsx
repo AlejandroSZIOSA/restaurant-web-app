@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Item } from "../../types/types";
+import cartLogo from "/cart.svg";
 
 interface CartItem extends Item {
   quantity: number;
@@ -9,7 +10,6 @@ interface CartItem extends Item {
 export default function CartPage() {
   const navigate = useNavigate();
   const location = useLocation();
-
   const cartItems_Data: CartItem[] = location.state;
 
   const [cartItems, setCartItems] = useState<CartItem[]>(cartItems_Data);
@@ -20,7 +20,7 @@ export default function CartPage() {
   }, [handlePlusQuantity, handleLessQuantity]);
 
   function handlePlusQuantity(id: number, q: number): void {
-    if (q <= 1) {
+    if (q >= 1) {
       setCartItems((prevItems) =>
         prevItems.map((item) =>
           item.id === id ? { ...item, quantity: q + 1 } : item
@@ -56,19 +56,41 @@ export default function CartPage() {
         ordersId.push(item.id);
       }
     });
-
     navigate("/eta", { state: ordersId });
   }
 
   return (
-    <div>
-      <header> 🛒 </header>
-      <main>
-        <section>
-          <ol>
+    <div style={{ background: "#EEE", height: "inherit" }}>
+      <header>
+        <img src={cartLogo}></img>{" "}
+      </header>
+      <main
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "926px",
+          gap: "18px",
+        }}
+      >
+        <section style={{ display: "flex", justifyContent: "left" }}>
+          <ol
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              background: "aqua",
+              width: "370px",
+              height: "600px",
+            }}
+          >
             {cartItems.map((i) => (
-              <li key={i.id}>
-                <div style={{ display: "flex", flexDirection: "column" }}>
+              <li key={i.id} style={{ listStyle: "none" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    background: "yellow",
+                  }}
+                >
                   <div
                     style={{
                       display: "flex",
@@ -76,39 +98,69 @@ export default function CartPage() {
                       justifyContent: "space-between",
                     }}
                   >
-                    <p>{i.name}</p>
-                    <p>{i.price} SEK</p>
+                    <h2>
+                      {i.name.toUpperCase()}
+                      ...................................... {i.price} SEK
+                    </h2>
                   </div>
                   <div style={{ display: "flex", flexDirection: "row" }}>
                     <button
+                      style={{ borderRadius: "50%", padding: "10px" }}
                       onClick={() => handlePlusQuantity(i.id, i.quantity)}
                     >
                       +
                     </button>
-                    <p>{i.quantity}</p>
+                    <p style={{ padding: "0px 10px 0px 10px " }}>
+                      {i.quantity} stycken
+                    </p>
                     <button
+                      style={{ borderRadius: "50%", padding: "10px" }}
                       onClick={() => handleLessQuantity(i.id, i.quantity)}
                     >
                       -
                     </button>
                   </div>
+                  <hr style={{ width: "-moz-available" }}></hr>
                 </div>
               </li>
             ))}
           </ol>
         </section>
-        <section style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex" }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+        <section
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "left",
+            background: "aquamarine",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ display: "block" }}>
               <h2>TOTALT</h2>
-              <p>Inc 20% moms</p>
+              <p style={{ paddingLeft: "30px" }}>Inc 20% moms</p>
             </div>
-            <div>
-              <h2>{totalPrice}</h2>
+            <div style={{ paddingLeft: "150px" }}>
+              <h1>{totalPrice} SEK</h1>
             </div>
           </div>
-          <div>
-            <button onClick={handleTakeMyMoney}>Take my money</button>
+        </section>
+        <section>
+          <div
+            onClick={handleTakeMyMoney}
+            style={{
+              display: "block",
+              padding: "2px",
+              background: "black",
+              width: "inherit",
+            }}
+          >
+            <h1 style={{ color: "white" }}>Take my money</h1>
           </div>
         </section>
       </main>
