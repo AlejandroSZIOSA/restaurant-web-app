@@ -62,13 +62,12 @@ export default function CartPage() {
   return (
     <div style={{ background: "#EEE", height: "926px" }}>
       <header style={{ display: "flex", justifyContent: "end" }}>
-        <img src={cartLogo}></img>{" "}
+        <img src={cartLogo}></img>
       </header>
       <main
         style={{
           display: "flex",
           flexDirection: "column",
-          height: "926px",
           gap: "10px",
         }}
       >
@@ -103,16 +102,31 @@ export default function CartPage() {
                   </div>
                   <div style={{ display: "flex", flexDirection: "row" }}>
                     <button
-                      style={{ borderRadius: "50%", padding: "10px" }}
+                      style={{
+                        borderRadius: "50%",
+                        padding: "10px",
+                        border: "none",
+                        background: "#3531313D",
+                      }}
                       onClick={() => handlePlusQuantity(i.id, i.quantity)}
                     >
                       +
                     </button>
-                    <p style={{ padding: "0px 10px 0px 10px " }}>
+                    <p
+                      style={{
+                        padding: "0px 10px 0px 10px ",
+                        fontSize: "large",
+                      }}
+                    >
                       {i.quantity} stycken
                     </p>
                     <button
-                      style={{ borderRadius: "50%", padding: "10px" }}
+                      style={{
+                        borderRadius: "50%",
+                        padding: "10px",
+                        border: "none",
+                        background: "#3531313D",
+                      }}
                       onClick={() => handleLessQuantity(i.id, i.quantity)}
                     >
                       -

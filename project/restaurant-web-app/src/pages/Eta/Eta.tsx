@@ -20,8 +20,8 @@ type OrderDataResult = {
 const URL: string = `https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/${ORDER_PRIVATE_ID}/orders`;
 
 export default function EtaPage() {
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
   const itemsIds: number[] = location.state;
 
   const [orderData, setOrderData] = useState<OrderData | null>(null);
